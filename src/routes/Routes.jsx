@@ -5,6 +5,7 @@ import AddScholarship from '../pages/Dashboard/Moderator/AddScholarship'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import ManageScholarships from '../components/ManageScholarships'
+import Home from '../pages/Home'
 
 export const router = createBrowserRouter([
    {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
         {
             path: '/signup',
             element: <SignUp></SignUp>
+        },
+        {
+            path: '/',
+            element: <Home></Home>
         }
     ]
    },
