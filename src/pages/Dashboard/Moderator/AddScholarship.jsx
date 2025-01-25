@@ -20,6 +20,8 @@ const AddScholarship = () => {
     setLoading(true);
 
     const form = e.target;
+
+    // Extract form values
     const scholarshipName = form.scholarshipName.value;
     const universityName = form.universityName.value;
     const country = form.country.value;
@@ -31,6 +33,8 @@ const AddScholarship = () => {
     const applicationFees = parseFloat(form.applicationFees.value);
     const serviceCharge = parseFloat(form.serviceCharge.value);
     const applicationDeadline = form.applicationDeadline.value;
+    const worldRank = form.worldRank.value;
+    const postDate = new Date().toISOString(); // Current date as post date
     const image = form.image.files[0];
 
     // Upload image and get URL
@@ -49,12 +53,14 @@ const AddScholarship = () => {
       applicationFees,
       serviceCharge,
       applicationDeadline,
-      image: imageUrl,
+      worldRank: parseInt(worldRank),
+      postDate,
       addedBy: {
         name: user?.displayName,
         email: user?.email,
         photo: user?.photoURL,
       },
+      image: imageUrl,
     };
 
     console.table(scholarshipData);

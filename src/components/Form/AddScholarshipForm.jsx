@@ -72,6 +72,21 @@ const AddScholarshipForm = ({
               />
             </div>
 
+            {/* University World Rank */}
+            <div className="space-y-1 text-sm">
+              <label htmlFor="worldRank" className="block text-gray-600">
+                University World Rank
+              </label>
+              <input
+                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                name="worldRank"
+                id="worldRank"
+                type="number"
+                placeholder="World Rank"
+                required
+              />
+            </div>
+
             {/* Degree */}
             <div className="space-y-1 text-sm">
               <label htmlFor="degree" className="block text-gray-600">
@@ -179,6 +194,21 @@ const AddScholarshipForm = ({
                 required
               />
             </div>
+
+            {/* Scholarship Post Date */}
+            <div className="space-y-1 text-sm">
+              <label htmlFor="postDate" className="block text-gray-600">
+                Scholarship Post Date
+              </label>
+              <input
+                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                name="postDate"
+                id="postDate"
+                type="date"
+                required
+              />
+            </div>
+
 
             {/* Image Upload */}
             <div className="p-4 w-full m-auto rounded-lg flex-grow">
