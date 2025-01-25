@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { GrLogout } from 'react-icons/gr'
 import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
-import { BsGraphUp } from 'react-icons/bs'
 import MenuItem from './Menu/MenuItem'
 
 import useAuth from '../../../hooks/useAuth'
@@ -26,13 +25,7 @@ const Sidebar = () => {
         <div>
           <div className='block cursor-pointer p-4 font-bold'>
             <Link to='/'>
-              <img
-                // className='hidden md:block'
-                src='https://i.ibb.co/4ZXzmq5/logo.png'
-                alt='logo'
-                width='100'
-                height='100'
-              />
+              <h1>EduFunds</h1>
             </Link>
           </div>
         </div>
@@ -67,11 +60,7 @@ const Sidebar = () => {
               <UserMenu />
               <ModeratorMenu />
 
-              <MenuItem
-                icon={BsGraphUp}
-                label='Statistics'
-                address='/dashboard'
-              />
+              
               <AdminMenu />
             </nav>
           </div>
