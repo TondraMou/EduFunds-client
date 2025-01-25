@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout'
 import AddScholarship from '../pages/Dashboard/Moderator/AddScholarship'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
+import ManageScholarships from '../components/ManageScholarships'
 
 export const router = createBrowserRouter([
    {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
         {
             path: 'add-scholarship',
             element: <AddScholarship></AddScholarship>
+        },
+        {
+            path: 'manage-scholarships',
+            element: <ManageScholarships></ManageScholarships>
         }
     ]
   }
