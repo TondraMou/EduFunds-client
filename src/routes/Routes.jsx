@@ -6,6 +6,7 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import ManageScholarships from '../components/ManageScholarships'
 import Home from '../pages/Home'
+import AllScholarships from '../pages/AllScholarships'
 
 export const router = createBrowserRouter([
    {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         {
             path: '/',
             element: <Home></Home>
+        },
+        {
+            path: '/all-scholarship',
+            element: <AllScholarships></AllScholarships>
         }
     ]
    },
