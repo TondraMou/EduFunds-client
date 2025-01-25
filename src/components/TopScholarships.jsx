@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from './Shared/LoadingSpinner';
 
 const TopScholarships = () => {
     const [topScholarships, setTopScholarships] = useState([]);
@@ -20,7 +21,7 @@ const TopScholarships = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div> <LoadingSpinner></LoadingSpinner> </div>;
     }
 
     return (
