@@ -1,101 +1,120 @@
-import Container from '../Container'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useAuth from '../../../hooks/useAuth'
+import Container from '../Container'; 
+import { AiOutlineMenu } from 'react-icons/ai'; 
+import { useState } from 'react'; 
+import { Link } from 'react-router-dom'; 
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, logOut } = useAuth()
-  const [isOpen, setIsOpen] = useState(false)
+  const { user, logOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='fixed w-full bg-white z-10 shadow-sm'>
-      <div className='py-4 border-b-[1px]'>
+    <div className="fixed w-full bg-white z-10 shadow-sm">
+      <div className="py-4 border-b-[1px]">
         <Container>
-          <div className='flex flex-row  items-center justify-between gap-3 md:gap-0'>
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to='/'>
-              <h1>EduFunds</h1>
+            <Link to="/" className="text-2xl font-bold">
+              EduFunds
             </Link>
-            {/* Dropdown Menu */}
-            <div className='relative'>
-              <div className='flex flex-row items-center gap-3'>
-                {/* Dropdown btn */}
-                <div
-                  onClick={() => setIsOpen(!isOpen)}
-                  className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'
-                >
-                  <AiOutlineMenu />
-                  <div className='hidden md:block'>
-                    {/* Avatar */}
-                    <img
-                      className='rounded-full'
-                      referrerPolicy='no-referrer'
-                      src={user.photoURL}
-                      alt='profile'
-                      height='30'
-                      width='30'
-                    />
-                  </div>
-                </div>
-              </div>
-              {isOpen && (
-                <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm'>
-                  <div className='flex flex-col cursor-pointer'>
-                    <Link
-                      to='/'
-                      className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                    >
-                      Home
-                    </Link>
 
-                    <Link
-                      to='/all-scholarship'
-                      className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                    >
-                      Home
-                    </Link>
-
-                    {user ? (
-                      <>
-                        <Link
-                          to='/dashboard'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Dashboard
-                        </Link>
-                        <div
-                          onClick={logOut}
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-                        >
-                          Logout
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          to='/login'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Login
-                        </Link>
-                        <Link
-                          to='/signup'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Sign Up
-                        </Link>
-                      </>
-                    )}
+            {/* Navbar Links */}
+            <div className="hidden md:flex items-center gap-8">
+              <Link to="/" className="font-semibold hover:text-gray-700 transition">
+                Home
+              </Link>
+              <Link to="/all-scholarship" className="font-semibold hover:text-gray-700 transition">
+                All Scholarships
+              </Link>
+              {user ? (
+                <>
+                  <Link to="/dashboard" className="font-semibold hover:text-gray-700 transition">
+                    Dashboard
+                  </Link>
+                  <div
+                    onClick={logOut}
+                    className="font-semibold hover:text-gray-700 cursor-pointer"
+                  >
+                    Logout
                   </div>
-                </div>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="font-semibold hover:text-gray-700 transition">
+                    Login
+                  </Link>
+                  <Link to="/signup" className="font-semibold hover:text-gray-700 transition">
+                    Sign Up
+                  </Link>
+                </>
               )}
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <div
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-3 border-[1px] border-neutral-200 flex items-center gap-2 rounded-full cursor-pointer hover:shadow-md transition"
+              >
+                <AiOutlineMenu />
+              </div>
+            </div>
           </div>
+
+          {/* Mobile Dropdown Menu */}
+          {isOpen && (
+            <div className="absolute top-16 right-0 bg-white shadow-md rounded-lg w-64 z-20">
+              <div className="flex flex-col cursor-pointer">
+                <Link
+                  to="/"
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/all-scholarship"
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  All Scholarships
+                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                    >
+                      Dashboard
+                    </Link>
+                    <div
+                      onClick={logOut}
+                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                    >
+                      Logout
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </Container>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
