@@ -9,6 +9,8 @@ import Home from '../pages/Home'
 import AllScholarships from '../pages/AllScholarships'
 import ManageUsers from '../pages/Dashboard/Moderator/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
+import ScholarshipDetails from '../components/ScholarshipDetails'
+import ApplicationForm from '../pages/ApplicationForm'
 
 export const router = createBrowserRouter([
    {
@@ -30,6 +32,16 @@ export const router = createBrowserRouter([
         {
             path: '/all-scholarship',
             element: <AllScholarships></AllScholarships>
+        },
+        {
+            path: '/scholarship-details/:id',
+            element: <ScholarshipDetails></ScholarshipDetails>
+        },
+        {
+            path: '/application-form/:scholarshipId',
+            element: <ApplicationForm />
+          
+          
         }
     ]
    },
