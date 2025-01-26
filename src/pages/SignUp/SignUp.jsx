@@ -1,66 +1,75 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import useAuth from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
-import { TbFidgetSpinner } from 'react-icons/tb';
-import { imageUpload } from '../../api/utils';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
+import { FcGoogle } from 'react-icons/fc'
+import useAuth from '../../hooks/useAuth'
+import { toast } from 'react-hot-toast'
+import { TbFidgetSpinner } from 'react-icons/tb'
+import { imageUpload, saveUser } from '../../api/utils'
 
 const SignUp = () => {
-  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
-  const navigate = useNavigate();
-  const [passwordError, setPasswordError] = useState('');
+  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
+  const navigate = useNavigate()
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const image = form.image.files[0];
-    const photoURL = await imageUpload(image);
+  // Form submit handler
+  const handleSubmit = async event => {
+    event.preventDefault()
+    const form = event.target
+    const name = form.name.value
+    const email = form.email.value
+    const password = form.password.value
+    const image = form.image.files[0]
 
-    // Password validation
-    if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters long.');
-      return;
-    }
-    if (!/[A-Z]/.test(password)) {
-      setPasswordError('Password must contain at least one uppercase letter.');
-      return;
-    }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      setPasswordError('Password must contain at least one special character.');
-      return;
-    }
+    // Debugging log for form data
+    console.log('Form Data:', { name, email, password, image });
 
-    setPasswordError(''); // Clear error if validations pass
+    // Password validation regex
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/
+    if (!passwordRegex.test(password)) {
+      toast.error('Password must be at least 6 characters long, contain a capital letter, and a special character.')
+      return
+    }
 
     try {
-      const result = await createUser(email, password);
+      // Send image data to an image hosting service (like imgbb)
+      const photoURL = await imageUpload(image)
 
-      await updateUserProfile(name, photoURL);
-      console.log(result);
+      // User registration process
+      const result = await createUser(email, password)
 
-      navigate('/');
-      toast.success('Signup Successful');
+      // Update user profile with name and photo URL
+      await updateUserProfile(name, photoURL)
+
+      // Save user data to the database (MongoDB, etc.)
+      await saveUser({ ...result?.user, displayName: name, photoURL })
+
+      // Navigate to home page after successful signup
+      navigate('/')
+      toast.success('Signup Successful')
     } catch (err) {
-      console.log(err);
-      toast.error(err?.message);
-    }
-  };
+      console.error(err)
 
+      // Firebase error handling
+      if (err?.code === 'auth/weak-password') {
+        toast.error('Password is too weak. Please choose a stronger password.')
+      } else if (err?.code === 'auth/email-already-in-use') {
+        toast.error('Email is already in use. Please use a different email.')
+      } else {
+        toast.error(err?.message || 'Something went wrong!')
+      }
+    }
+  }
+
+  // Handle Google Sign-in
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
-
-      navigate('/');
-      toast.success('Signup Successful');
+      const data = await signInWithGoogle()
+      await saveUser(data?.user)
+      navigate('/')
+      toast.success('Signup Successful')
     } catch (err) {
-      console.log(err);
-      toast.error(err?.message);
+      console.error(err)
+      toast.error(err?.message || 'Google Sign-In failed')
     }
-  };
+  }
 
   return (
     <div className='flex justify-center items-center min-h-screen bg-white'>
@@ -69,13 +78,16 @@ const SignUp = () => {
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
           <p className='text-sm text-gray-400'>Welcome to EduFunds</p>
         </div>
+
+        {/* Signup Form */}
         <form
           onSubmit={handleSubmit}
-          noValidate=''
+          noValidate
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
         >
           <div className='space-y-4'>
+            {/* Name Input */}
             <div>
               <label htmlFor='name' className='block mb-2 text-sm'>
                 Name
@@ -86,9 +98,11 @@ const SignUp = () => {
                 id='name'
                 placeholder='Enter Your Name Here'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
+                required
               />
             </div>
+
+            {/* Image Upload */}
             <div>
               <label htmlFor='image' className='block mb-2 text-sm'>
                 Select Image:
@@ -99,8 +113,11 @@ const SignUp = () => {
                 id='image'
                 name='image'
                 accept='image/*'
+                className='w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-200 text-gray-900'
               />
             </div>
+
+            {/* Email Input */}
             <div>
               <label htmlFor='email' className='block mb-2 text-sm'>
                 Email address
@@ -112,9 +129,10 @@ const SignUp = () => {
                 required
                 placeholder='Enter Your Email Here'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
               />
             </div>
+
+            {/* Password Input */}
             <div>
               <div className='flex justify-between'>
                 <label htmlFor='password' className='text-sm mb-2'>
@@ -130,12 +148,10 @@ const SignUp = () => {
                 placeholder='*******'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
               />
-              {passwordError && (
-                <p className='text-sm text-red-500 mt-2'>{passwordError}</p>
-              )}
             </div>
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type='submit'
@@ -149,6 +165,8 @@ const SignUp = () => {
             </button>
           </div>
         </form>
+
+        {/* Social SignUp Section */}
         <div className='flex items-center pt-4 space-x-1'>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
           <p className='px-3 text-sm dark:text-gray-400'>
@@ -156,14 +174,17 @@ const SignUp = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
+
+        {/* Google SignIn Button */}
         <div
           onClick={handleGoogleSignIn}
           className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
         >
           <FcGoogle size={32} />
-
           <p>Continue with Google</p>
         </div>
+
+        {/* Login Link */}
         <p className='px-6 text-sm text-center text-gray-400'>
           Already have an account?{' '}
           <Link
@@ -176,7 +197,7 @@ const SignUp = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

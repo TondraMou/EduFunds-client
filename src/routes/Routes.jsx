@@ -7,6 +7,8 @@ import SignUp from '../pages/SignUp/SignUp'
 import ManageScholarships from '../components/ManageScholarships'
 import Home from '../pages/Home'
 import AllScholarships from '../pages/AllScholarships'
+import ManageUsers from '../pages/Dashboard/Moderator/ManageUsers'
+import Profile from '../pages/Dashboard/Common/Profile'
 
 export const router = createBrowserRouter([
    {
@@ -42,6 +44,14 @@ export const router = createBrowserRouter([
         {
             path: 'manage-scholarships',
             element: <ManageScholarships></ManageScholarships>
+        },
+        {
+            path: 'manage-users',
+            element: <ManageUsers></ManageUsers>
+        },
+        {
+            path: 'profile',
+            element: <Profile></Profile>
         }
     ]
   }
