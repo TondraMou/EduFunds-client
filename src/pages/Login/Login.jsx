@@ -1,145 +1,117 @@
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import useAuth from '../../hooks/useAuth'
-import toast from 'react-hot-toast'
-import { TbFidgetSpinner } from 'react-icons/tb'
-import LoadingSpinner from '../../components/Shared/LoadingSpinner'
-import { saveUser } from '../../api/utils'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import GoogleLogIn from "../../component/Shared/GoogleLogIn";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useState } from "react";
+import { FaRegCircleXmark } from "react-icons/fa6";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-  const { signIn, signInWithGoogle, loading, user } = useAuth()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location?.state?.from?.pathname || '/'
-  if (loading) return <LoadingSpinner />
-  if (user) return <Navigate to={from} replace={true} />
-  // form submit handler
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const form = event.target
-    const email = form.email.value
-    const password = form.password.value
-
-    try {
-      //User Login
-      await signIn(email, password)
-
-      navigate(from, { replace: true })
-      toast.success('Login Successful')
-    } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
+  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  // console.log(location.state?.from?.pathname);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (userData) => {
+    if (userData.password.length < 6) {
+      console.log("password error");
+      return setError("Password must be 6 characters or more");
+    } else if (/^[^A-Z]*$/.test(userData.password)) {
+      return setError("password must have one uppercase");
+    } else if (/^[^!@#$%^&*()]*$/.test(userData.password)) {
+      return setError("Password must have one special character");
     }
-  }
-
-  // Handle Google Signin
-  const handleGoogleSignIn = async () => {
-    try {
-      //User Registration using google
-      const data = await signInWithGoogle()
-      // save user info in db if the user is new
-      await saveUser(data?.user)
-      navigate(from, { replace: true })
-      toast.success('Login Successful')
-    } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
-    }
-  }
+    login(userData.email, userData.password)
+      .then((result) => {
+        Swal.fire("login successfully");
+        navigate(from);
+      })
+      .catch((error) => {
+        if (error.message == "Firebase: Error (auth/invalid-credential).") {
+          setError("Incorrect email or password");
+        } else {
+          setError(error.message);
+        }
+      });
+  };
+  // remove error
+  const handleRemoverError = () => {
+    setError("");
+  };
   return (
-    <div className='flex justify-center items-center min-h-screen bg-white'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
-        <div className='mb-8 text-center'>
-          <h1 className='my-3 text-4xl font-bold'>Log In</h1>
-          <p className='text-sm text-gray-400'>
-            Sign in to access your account
-          </p>
-        </div>
-        <form
-          onSubmit={handleSubmit}
-          noValidate=''
-          action=''
-          className='space-y-6 ng-untouched ng-pristine ng-valid'
-        >
-          <div className='space-y-4'>
-            <div>
-              <label htmlFor='email' className='block mb-2 text-sm'>
-                Email address
-              </label>
-              <input
-                type='email'
-                name='email'
-                id='email'
-                required
-                placeholder='Enter Your Email Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
-              />
-            </div>
-            <div>
-              <div className='flex justify-between'>
-                <label htmlFor='password' className='text-sm mb-2'>
-                  Password
-                </label>
-              </div>
-              <input
-                type='password'
-                name='password'
-                autoComplete='current-password'
-                id='password'
-                required
-                placeholder='*******'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
-              />
-            </div>
-          </div>
+    <section className="w-full max-w-lg sm:max-w-md p-6 m-auto bg-primary rounded-lg shadow-2xl mt-12 text-white">
+      <Helmet>
+        <title>EduFunds | Login</title>
+      </Helmet>
+      <h2 className="text-center text-3xl font-bold mb-4">Login</h2>
 
-          <div>
-            <button
-              type='submit'
-              className='bg-lime-500 w-full rounded-md py-3 text-white'
-            >
-              {loading ? (
-                <TbFidgetSpinner className='animate-spin m-auto' />
-              ) : (
-                'Continue'
-              )}
-            </button>
-          </div>
-        </form>
-        <div className='space-y-1'>
-          <button className='text-xs hover:underline hover:text-lime-500 text-gray-400'>
-            Forgot password?
+      {error && (
+        <p className="text-center my-3 text-base font-semibold text-red-600 flex items-center gap-2 justify-center">
+          {error}
+          <FaRegCircleXmark
+            className="text-base cursor-pointer"
+            onClick={handleRemoverError}
+          />
+        </p>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-semibold text-white">Email</span>
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="input input-bordered text-primary w-full"
+            required
+            {...register("email")}
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-semibold text-white">
+              Password
+            </span>
+          </label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            className="input input-bordered text-primary w-full"
+            required
+            {...register("password")}
+          />
+        </div>
+
+        <div className="mt-6">
+          <button className="w-full text-black hover:rounded-2xl transition-all duration-300 px-6 py-2.5 bg-[#F8EDEB] rounded-md font-semibold">
+            LogIn
           </button>
         </div>
-        <div className='flex items-center pt-4 space-x-1'>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-          <p className='px-3 text-sm dark:text-gray-400'>
-            Login with social accounts
-          </p>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-        </div>
-        <div
-          onClick={handleGoogleSignIn}
-          className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
-        >
-          <FcGoogle size={32} />
+      </form>
 
-          <p>Continue with Google</p>
-        </div>
-        <p className='px-6 text-sm text-center text-gray-400'>
-          Don&apos;t have an account yet?{' '}
-          <Link
-            to='/signup'
-            className='hover:underline hover:text-lime-500 text-gray-600'
-          >
-            Sign up
-          </Link>
-          .
+      <div className="flex items-center justify-between mt-4">
+        <span className="w-1/5 border-b border-white lg:w-1/5"></span>
+        <p className="text-xs text-center font-bold text-white">
+          or login with Social Media
         </p>
+        <span className="w-1/5 border-b border-white lg:w-1/5"></span>
       </div>
-    </div>
-  )
-}
 
-export default Login
+      <GoogleLogIn />
+
+      <p className="mt-8 text-white font-semibold text-center">
+        Are you new here?{" "}
+        <Link to="/register" className="text-white underline">
+          Please register
+        </Link>
+      </p>
+    </section>
+  );
+};
+
+export default Login;
