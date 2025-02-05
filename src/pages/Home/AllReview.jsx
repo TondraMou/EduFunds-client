@@ -22,7 +22,7 @@ const AllReview = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <RiseLoader className="" color="#890C25" />
+        <RiseLoader className="" color="#0000FF" />
       </div>
     );
   }
