@@ -26,6 +26,23 @@ const Navbar = () => {
       >
         All Scholarship
       </NavLink>
+      <NavLink
+  className={({ isActive }) =>
+    isActive ? "text-lg font-bold underline " : "text-lg"
+  }
+  to="/about"
+>
+  About
+</NavLink>
+<NavLink
+  className={({ isActive }) =>
+    isActive ? "text-lg font-bold underline " : "text-lg"
+  }
+  to="/contact"
+>
+  Contact
+</NavLink>
+
       {isAdminOrMod === "Admin" && (
         <NavLink
           className={({ isActive }) =>
@@ -62,7 +79,7 @@ const Navbar = () => {
   return (
     <>
       
-      <nav className="navbar bg-slate-50 text-blue-600 justify-between md:px-5 shadow-xl z-10 h-20">
+      <nav className="navbar bg-slate-50 text-blue-600 justify-between md:px-5 shadow-xl sticky top-0 z-50 h-20">
         <div className="w">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
