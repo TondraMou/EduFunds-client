@@ -10,7 +10,7 @@ const ScholarshipAnnouncements = () => {
   ];
 
   return (
-    <div className=" py-3 mt-24">
+    <div className="mt-24">
       <Marquee pauseOnHover speed={50}>
         {announcements.map((announcement, index) => (
           <span key={index} className="mx-8 font-semibold">
