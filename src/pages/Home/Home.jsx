@@ -5,6 +5,7 @@ import Banner from "./Banner";
 import Statics from "./Statics";
 import FAQ from "./FAQ";
 import AllReview from "./AllReview";
+import About from "./About";
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
         <title>EduFunds | Home</title>
       </Helmet>
       <Banner></Banner>
+      <About></About>
       <Statics></Statics>
       <TopScholarship></TopScholarship>
       <FAQ></FAQ>
