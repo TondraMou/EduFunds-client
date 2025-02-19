@@ -42,7 +42,7 @@ const Login = () => {
     setError("");
   };
   return (
-    <section className="w-full max-w-lg sm:max-w-md p-6 m-auto bg-primary rounded-lg shadow-2xl mt-12 text-white">
+    <section className="w-full max-w-lg sm:max-w-md p-6 m-auto bg-primary rounded-lg shadow-2xl mt-12 mb-12 text-white">
       <Helmet>
         <title>EduFunds | Login</title>
       </Helmet>

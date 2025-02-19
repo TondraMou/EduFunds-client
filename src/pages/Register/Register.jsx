@@ -74,7 +74,7 @@ const Register = () => {
     setError("");
   };
   return (
-    <section className="w-full max-w-lg sm:max-w-md p-6 m-auto rounded-lg shadow-2xl mt-12 bg-primary text-white">
+    <section className="w-full max-w-lg sm:max-w-md p-6 m-auto rounded-lg shadow-2xl mt-12 mb-12 bg-primary text-white">
       <Helmet>
         <title>EduFunds | Register</title>
       </Helmet>
