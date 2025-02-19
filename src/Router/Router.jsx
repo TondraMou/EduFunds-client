@@ -21,6 +21,7 @@ import MyReviews from "../Pages/Dashboard/MyReviews";
 import ErrorPage from "../Pages/ErrorPage";
 import OnlyAdminRoute from "../Router/OnlyAdminRoute";
 import ModeratorHome from "../Pages/Dashboard/ModeratorHome";
+import AboutUs from "../Pages/AboutUs";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/about",
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "/login",

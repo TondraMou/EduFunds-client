@@ -24,7 +24,7 @@ const About = () => {
           </h2>
           <p className="text-base md:text-lg text-gray-700 mb-4">
             At <strong>EduFunds</strong>, we believe in breaking financial barriers 
-            to education. Since 2024, we've been dedicated to connecting students 
+            to education. Since 2025, we've been dedicated to connecting students 
             with scholarships that turn aspirations into achievements.
           </p>
           <p className="text-base md:text-lg text-gray-700 mb-4">
