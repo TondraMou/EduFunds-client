@@ -25,7 +25,7 @@ const AdminHome = () => {
 
   const { application_count, totalFees, total_scholarship, total_user } =
     admin_chart;
-  // console.log(application_count);
+  
 
   const total_application = application_count.reduce(
     (total, app) => total + app.count,
@@ -53,7 +53,7 @@ const AdminHome = () => {
       </div>
       {/* chart */}
 
-      {/* <ResponsiveContainer width="100%" height="100%"> */}
+      
 
       <div className="my-10">
         <h2 className="text-center underline font-cinzel text-3xl text-primary font-bold">
@@ -64,7 +64,7 @@ const AdminHome = () => {
         <BarChart
           width={1500}
           height={400}
-          // color="primary"
+         
           data={application_count}
           margin={{
             top: 5,
@@ -77,10 +77,10 @@ const AdminHome = () => {
           <XAxis dataKey="_id" />
           <YAxis />
           <Tooltip shared={false} trigger="click" />
-          {/* <Legend /> */}
+         
           <Bar dataKey="count" fill="#ADD8E6" />
         </BarChart>
-        {/* </ResponsiveContainer> */}
+       
       </div>
     </div>
   );

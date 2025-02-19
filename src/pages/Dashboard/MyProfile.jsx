@@ -6,7 +6,7 @@ const MyProfile = () => {
   const { isAdminOrMod } = useAdmin();
   const { user } = useAuth();
   return (
-    <div className="md:max-w-xl mx-auto bg-base-100 border border-primary rounded-lg p-8 shadow-lg">
+    <div className="md:max-w-xl mx-auto border border-primary rounded-lg p-8 shadow-lg">
       <Helmet>
         <title>EduFunds | Profile</title>
       </Helmet>

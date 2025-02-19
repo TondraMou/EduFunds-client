@@ -49,7 +49,7 @@ const AddScholarship = () => {
       <Helmet>
         <title>EduFunds | Dashboard add-scholarship</title>
       </Helmet>
-      <div className="bg-base-100 border border-primary md:max-w-3xl lg:max-w-5xl mx-auto p-5 rounded-md">
+      <div className="border border-primary md:max-w-3xl lg:max-w-5xl mx-auto p-5 rounded-md">
         <h2 className="text-center text-3xl font-bold font-cinzel text-primary">
           Add A Scholarship
         </h2>

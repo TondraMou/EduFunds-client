@@ -6,6 +6,7 @@ import Statics from "./Statics";
 import FAQ from "./FAQ";
 import AllReview from "./AllReview";
 import About from "./About";
+import PartnerInstitutions from "./PartnerInstitutions";
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       <About></About>
       <Statics></Statics>
       <TopScholarship></TopScholarship>
+      <PartnerInstitutions></PartnerInstitutions>
       <FAQ></FAQ>
       <AllReview></AllReview>
      
