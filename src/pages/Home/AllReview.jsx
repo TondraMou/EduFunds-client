@@ -8,8 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-// import { SwiperSlide } from "swiper/react";
-// import Swiper from "swiper";
+
 const AllReview = () => {
   const axiosPublic = useAxiosPublic();
   const { data: reviews, isLoading } = useQuery({

@@ -4,6 +4,7 @@ import TopScholarship from "./TopScholarship";
 import Banner from "./Banner";
 import Statics from "./Statics";
 import FAQ from "./FAQ";
+import AllReview from "./AllReview";
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
       <Statics></Statics>
       <TopScholarship></TopScholarship>
       <FAQ></FAQ>
+      <AllReview></AllReview>
      
     </div>
   );
