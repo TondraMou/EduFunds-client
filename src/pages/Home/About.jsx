@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center md:max-w-6xl mx-auto my-16 px-4 mt-32">
+    <div className="flex flex-col md:flex-row items-center md:max-w-6xl mx-auto px-4 mt-24">
     
       <div className="w-full md:w-1/2 flex justify-center">
         <Slide direction="left" triggerOnce={true} duration={2000}>
@@ -17,7 +17,7 @@ const About = () => {
       </div>
 
      
-      <div className="w-full md:w-1/2 mt-8 md:mt-0 md:ml-8">
+      <div className="w-full md:w-1/2 md:ml-8">
         <Slide direction="right" triggerOnce={true} duration={2000}>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-cinzel">
             Who We Are

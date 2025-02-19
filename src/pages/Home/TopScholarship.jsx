@@ -23,7 +23,7 @@ const TopScholarship = () => {
   }
 
   return (
-    <div className="mt-32">
+    <div className="mt-24">
       <div className="text-center">
         <h2 className="text-4xl font-bold font-cinzel text-primary">
           Top Scholarship

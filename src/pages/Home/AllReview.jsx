@@ -27,7 +27,7 @@ const AllReview = () => {
   }
 
   return (
-    <div className="md:max-w-4xl mx-auto rounded-md mt-32 px-4">
+    <div className="md:max-w-4xl mx-auto rounded-md mt-24 px-4">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
