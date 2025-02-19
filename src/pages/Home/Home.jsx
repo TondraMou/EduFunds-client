@@ -8,6 +8,7 @@ import AllReview from "./AllReview";
 import About from "./About";
 import PartnerInstitutions from "./PartnerInstitutions";
 import ScholarshipAnnouncements from "./ScholarshipAnnouncements";
+import JoinUs from "./JoinUs";
 
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
       <PartnerInstitutions></PartnerInstitutions>
       <FAQ></FAQ>
       <AllReview></AllReview>
+      <JoinUs></JoinUs>
      
     </div>
   );
