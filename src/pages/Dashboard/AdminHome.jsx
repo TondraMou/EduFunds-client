@@ -3,87 +3,141 @@ import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { RiseLoader } from "react-spinners";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  FaUserGraduate,
+  FaMoneyCheckAlt,
+  FaClipboardList,
+  FaUsers,
+} from "react-icons/fa";
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const { data: admin_chart, isLoading } = useQuery({
+
+  const { data: admin_chart, isLoading, isError } = useQuery({
+    queryKey: ["admin-chart"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/admin-dashboard");
       return data;
     },
-    queryKey: ["admin-chart"],
   });
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <RiseLoader className="" color="#0000FF" />
+        <RiseLoader color="#2563EB" />
       </div>
     );
   }
 
-  const { application_count, totalFees, total_scholarship, total_user } =
-    admin_chart;
-  
+  if (isError) {
+    return (
+      <div className="text-center text-red-500 mt-20 text-xl">
+        Failed to load admin dashboard data.
+      </div>
+    );
+  }
+
+  const {
+    application_count = [],
+    totalFees = 0,
+    total_scholarship = 0,
+    total_user = 0,
+  } = admin_chart;
 
   const total_application = application_count.reduce(
     (total, app) => total + app.count,
     0
   );
-  console.log(total_application);
+
   return (
-    <div>
+    <div className="p-4 md:p-6">
       <Helmet>
-        <title>EduFunds | Dashboard-Home</title>
+        <title>EduFunds | Admin Dashboard</title>
       </Helmet>
-      <div>
-        <h4 className="text-lg font-bold font-cinzel text-primary">
+
+      <div className="mb-6">
+        <h4 className="text-lg font-bold text-primary font-cinzel">
           Hi, {user?.displayName}
         </h4>
-        <h2 className="text-4xl">Welcome to Admin Dashboard</h2>
-      </div>
-      <div>
-        <div className="flex flex-col md:flex-row justify-between mt-5 text-xl font-bold text-primary">
-          <h2>Total Scholarship:{total_scholarship}</h2>
-          <h2>Total Application: {total_application}</h2>
-          <h2>Total Application fees deposit: ${totalFees}</h2>
-          <h2>Total User:{total_user}</h2>
-        </div>
-      </div>
-      {/* chart */}
-
-      
-
-      <div className="my-10">
-        <h2 className="text-center underline font-cinzel text-3xl text-primary font-bold">
-          University-Wise Application Data
+        <h2 className="text-3xl md:text-4xl font-semibold mt-1">
+          Welcome to Admin Dashboard
         </h2>
       </div>
-      <div className="flex justify-center mt-10">
-        <BarChart
-          width={1500}
-          height={400}
-         
-          data={application_count}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="_id" />
-          <YAxis />
-          <Tooltip shared={false} trigger="click" />
-         
-          <Bar dataKey="count" fill="#ADD8E6" />
-        </BarChart>
-       
+
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+        <StatCard
+          icon={<FaUserGraduate size={28} />}
+          label="Total Scholarships"
+          value={total_scholarship}
+          bg="bg-blue-100"
+        />
+        <StatCard
+          icon={<FaClipboardList size={28} />}
+          label="Total Applications"
+          value={total_application}
+          bg="bg-green-100"
+        />
+        <StatCard
+          icon={<FaMoneyCheckAlt size={28} />}
+          label="Fees Deposited"
+          value={`$${totalFees}`}
+          bg="bg-yellow-100"
+        />
+        <StatCard
+          icon={<FaUsers size={28} />}
+          label="Total Users"
+          value={total_user}
+          bg="bg-pink-100"
+        />
+      </div>
+
+     
+      <div className="my-12">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-primary font-cinzel underline">
+          University-Wise Application Data
+        </h2>
+
+        <div className="w-full h-[400px] mt-10">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={application_count}
+              margin={{ top: 10, right: 30, left: 0, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="_id" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="count" fill="#60A5FA" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
 };
+
+
+const StatCard = ({ icon, label, value, bg }) => (
+  <div
+    className={`rounded-xl shadow-md p-5 flex items-center space-x-4 ${bg}`}
+  >
+    <div className="text-primary">{icon}</div>
+    <div>
+      <h3 className="text-xl font-semibold">{value}</h3>
+      <p className="text-sm text-gray-700">{label}</p>
+    </div>
+  </div>
+);
 
 export default AdminHome;
