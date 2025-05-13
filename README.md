@@ -51,3 +51,8 @@ The EduFunds is a comprehensive portal designed to streamline the scholarship ma
 ---
 
 [https://edufunds-m.netlify.app/](https://edufunds-m.netlify.app/)
+
+---
+**admin**
+email- c@gmail.com
+password- Abcd12@
