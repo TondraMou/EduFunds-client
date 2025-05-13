@@ -10,7 +10,7 @@ const AllScholarship = () => {
   const [count, setCount] = useState(0);
   const [currentPg, setCurrentPg] = useState(1);
   const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc"); // state to handle sorting order
+  const [sortOrder, setSortOrder] = useState("asc"); 
   const axiosPublic = useAxiosPublic();
 
   const { data: scholarship, isLoading } = useQuery({
@@ -23,7 +23,7 @@ const AllScholarship = () => {
     queryKey: ["all-scholarship", currentPg, itemPerPg, search],
   });
 
-  // Fetch total count for pagination
+  
   useEffect(() => {
     const getCount = async () => {
       const { data } = await axiosPublic.get(
@@ -34,21 +34,21 @@ const AllScholarship = () => {
     getCount();
   }, [search]);
 
-  // Handle sorting logic
+  
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
-  // Sort the scholarships based on application fee
+
   const sortedScholarships = scholarship?.sort((a, b) => {
     if (sortOrder === "asc") {
-      return a.application_fees - b.application_fees; // Sort by ascending fees
+      return a.application_fees - b.application_fees;
     } else {
-      return b.application_fees - a.application_fees; // Sort by descending fees
+      return b.application_fees - a.application_fees; 
     }
   });
 
-  // Pagination setup
+  
   const numberOfPages = Math.ceil(count / itemPerPg);
   const pages = [...Array(numberOfPages).keys()].map((e) => e + 1);
 
@@ -71,7 +71,7 @@ const AllScholarship = () => {
   }
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 mb-20">
       <Helmet>
         <title>EduFunds | All Scholarship</title>
       </Helmet>
@@ -95,7 +95,7 @@ const AllScholarship = () => {
         </form>
       </div>
 
-      {/* Sorting Dropdown */}
+      
       <div className="text-center my-4">
         <select
           value={sortOrder}
@@ -113,16 +113,16 @@ const AllScholarship = () => {
         </h2>
       )}
 
-      {/* Scholarship Cards */}
+      
       <div className="mt-10 grid md:grid-cols-3 gap-6">
         {sortedScholarships?.map((item) => (
           <ScholarshipCard key={item._id} item={item} />
         ))}
       </div>
 
-      {/* Pagination */}
+     
       <div className="flex justify-center mt-12">
-        {/* Previous */}
+       
         <button
           disabled={currentPg === 1}
           onClick={() => handlePaginationBtn(currentPg - 1)}
@@ -147,7 +147,7 @@ const AllScholarship = () => {
           </div>
         </button>
 
-        {/* Pagination Number */}
+        
         {pages.map((btnNum) => (
           <button
             onClick={() => handlePaginationBtn(btnNum)}
@@ -158,7 +158,7 @@ const AllScholarship = () => {
           </button>
         ))}
 
-        {/* Next */}
+       
         <button
           disabled={currentPg === numberOfPages}
           onClick={() => handlePaginationBtn(currentPg + 1)}

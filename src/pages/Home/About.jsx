@@ -1,4 +1,4 @@
-import about from "../../assets/about.jpg";
+import about from "../../assets/about-us.png";
 import { Slide } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 
