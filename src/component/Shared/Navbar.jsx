@@ -5,7 +5,6 @@ import useAuth from "../../hooks/useAuth";
 const Navbar = () => {
   const { isAdminOrMod } = useAdmin();
   console.log(isAdminOrMod);
-  // const {user}=useContext(AuthContext);
   const { user, logOut } = useAuth();
   console.log(user);
   const navLins = (
@@ -75,7 +74,6 @@ const Navbar = () => {
       )}
     </>
   );
-  // Navbar start
   return (
     <>
       
@@ -112,7 +110,6 @@ const Navbar = () => {
             </h2>
           </Link>
         </div>
-        {/* right */}
         {
           <div className="gap-8">
             <div className="hidden lg:flex">
@@ -120,7 +117,6 @@ const Navbar = () => {
                 {navLins}
               </ul>
             </div>
-            {/* login register conditon */}
             {user ? (
               <div className="dropdown dropdown-end z-10">
                 <div
@@ -141,7 +137,7 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary  rounded-box w-52"
                 >
                   <li className="text-center font-bold">
-                    <h3 className="flex justify-center text-base mb-3">
+                    <h3 className="flex justify-center text-base text-white mb-3">
                       {user?.displayName}
                     </h3>
                   </li>
