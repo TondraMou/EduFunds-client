@@ -11,18 +11,17 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="font-inter flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen font-inter">
       <Helmet>
         <title>EduFunds | Dashboard</title>
       </Helmet>
 
-      
+      {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-64 bg-primary text-white p-6 transition-transform duration-300 ease-in-out transform md:relative md:translate-x-0 ${
+        className={`fixed z-40 h-full w-64 bg-primary text-white p-6 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-       
         <div className="flex flex-col items-center mt-6 -mx-2">
           <img
             className="object-cover w-20 h-20 mx-2 rounded-full"
@@ -33,7 +32,6 @@ const Dashboard = () => {
           <p className="mx-2 mt-1 text-sm font-medium">{user?.email}</p>
         </div>
 
-        
         <nav className="mt-8 flex flex-col space-y-4">
           {isAdminOrMod === "Admin" && (
             <>
@@ -79,7 +77,7 @@ const Dashboard = () => {
       )}
 
      
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-col flex-1 md:ml-64 min-h-screen bg-gray-100">
        
         <div className="bg-white shadow px-4 py-3 flex items-center justify-between md:hidden">
           <button
@@ -92,8 +90,8 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold text-primary">Dashboard</h2>
         </div>
 
-      
-        <div className="flex-1 p-6">
+        
+        <div className="flex-1 overflow-auto p-4">
           <Outlet />
         </div>
       </div>
