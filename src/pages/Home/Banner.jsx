@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-950 to-purple-900 overflow-hidden">
+    <div className="relative w-full h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-950 to-purple-900 overflow-hidden">
       
-      {/* Background Animated Waves */}
       <div className="absolute inset-0">
         <img 
           src="/wave.svg" 
@@ -14,12 +13,9 @@ const Banner = () => {
         />
       </div>
 
-      {/* Floating Glow Effects */}
       <div className="absolute w-64 h-64 bg-blue-400 opacity-40 rounded-full blur-3xl top-10 left-20 animate-pulse"></div>
       <div className="absolute w-48 h-48 bg-purple-500 opacity-40 rounded-full blur-3xl bottom-10 right-20 animate-bounce"></div>
 
-
-      {/* Main Content Card */}
       <motion.div 
         initial={{ opacity: 0, y: -50 }} 
         animate={{ opacity: 1, y: 0 }} 
@@ -33,7 +29,6 @@ const Banner = () => {
           Explore thousands of scholarships and fund your dreams.
         </p>
 
-        {/* Button with Glow Effect */}
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Link 
             to="/all-scholarship"
