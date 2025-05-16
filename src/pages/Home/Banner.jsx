@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Banner = () => {
   return (
-    <div className="relative w-full h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-950 to-purple-900 overflow-hidden">
+    <div className="relative w-full mx-auto h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-950 to-purple-900 overflow-hidden">
       
       <div className="absolute inset-0">
         <img 

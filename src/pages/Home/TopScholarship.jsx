@@ -23,7 +23,7 @@ const TopScholarship = () => {
   }
 
   return (
-    <div className="mt-24">
+    <div className="mt-24 mx-auto">
       <div className="text-center">
         <h2 className="text-4xl font-bold font-cinzel text-primary">
           Top Scholarship
@@ -31,7 +31,7 @@ const TopScholarship = () => {
         <h4 className="font-bold mt-2 tex-base">Explore Our top scholarship</h4>
       </div>
       <Slide direction="up" triggerOnce={true} duration={1000}>
-        <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
           {scholarship?.map((item) => (
             <HomePgCard item={item} key={item._id}></HomePgCard>
           ))}
