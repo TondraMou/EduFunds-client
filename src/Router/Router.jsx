@@ -23,6 +23,7 @@ import OnlyAdminRoute from "../Router/OnlyAdminRoute";
 import ModeratorHome from "../Pages/Dashboard/ModeratorHome";
 import AboutUs from "../Pages/AboutUs";
 import Contact from "../Pages/Contact";
+import PrivacyPolicy from "../Pages/Privacy";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy></PrivacyPolicy>
+      }
     ],
   },
   // dashboard
