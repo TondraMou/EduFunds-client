@@ -2,9 +2,9 @@ import { Slide } from "react-awesome-reveal";
 
 const Statics = () => {
   return (
-    <div className="relative mt-24 py-16  overflow-hidden rounded-2xl shadow-xl">
-      <div className="absolute w-96 h-96 opacity-20 blur-3xl top-10 left-10 z-0"></div>
-      <div className="absolute w-72 h-72 opacity-20 blur-3xl bottom-10 right-10 z-0"></div>
+    <div className="relative overflow-hidden">
+      <div className="absolute w-96 h-96 opacity-20 top-10 left-10 z-0"></div>
+      <div className="absolute w-72 h-72 opacity-20 bottom-10 right-10 z-0"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
         <h2 className="text-center text-3xl md:text-5xl font-extrabold font-cinzel mb-12 leading-tight">

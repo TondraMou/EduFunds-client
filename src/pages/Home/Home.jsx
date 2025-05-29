@@ -9,6 +9,7 @@ import About from "./About";
 import PartnerInstitutions from "./PartnerInstitutions";
 import ScholarshipAnnouncements from "./ScholarshipAnnouncements";
 import JoinUs from "./JoinUs";
+import Services from "./Services";
 
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
       <Banner></Banner>
       <ScholarshipAnnouncements></ScholarshipAnnouncements>
       <About></About>
+      <Services></Services>
       <Statics></Statics>
       <TopScholarship></TopScholarship>
       <PartnerInstitutions></PartnerInstitutions>
