@@ -7,7 +7,7 @@ const Statics = () => {
       <div className="absolute w-72 h-72 opacity-20 bottom-10 right-10 z-0"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
-        <h2 className="text-center text-3xl md:text-5xl font-extrabold font-cinzel mb-12 leading-tight">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold mb-12">
           Notable Achievements
         </h2>
 
